@@ -1,0 +1,15 @@
+{
+  "name": "payutc-cards",
+  "version": "1.0.0",
+  "description": "",
+  "main": "payutc_cards.js",
+  "dependencies": {
+    "fishingrod": "^3.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jo Colina",
+  "license": "ISC"
+}
