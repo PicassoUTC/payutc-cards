@@ -7,7 +7,7 @@ const config = {
 
 // App name is Registrar
 const constants = require('./config.json');
-
+console.log('Config', constants.app_key);
 // login before launching creation
 fishingrod.fish({
 	https:true, 
@@ -34,13 +34,14 @@ fishingrod.fish({
 	console.error('Could not login', e);
 });
 
+var dups = 0;
 function launch(sid){
 	// for each tag we create a new user
 	for(var uid of cards){
 		fishingrod.fish({
 			https: true,
 			host: 'api.nemopay.net',
-			path: `/services/REGISTER/register?app_key=${config.app_key}&sessionid=${sid}&system_id=payutc`,
+			path: `/services/REGISTER/register?app_key=${constants.app_key}&sessionid=${sid}&system_id=payutc`,
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -67,6 +68,10 @@ function launch(sid){
 			}
 			// check if user was created
 			if(!response.id){
+				if(response.error.type === 'DuplicateUser'){
+					dups++;
+					return console.log('Dup!', dups);
+				}
 				console.error('USERERR', response);
 				throw new Error('Could not create user');
 			} else {
